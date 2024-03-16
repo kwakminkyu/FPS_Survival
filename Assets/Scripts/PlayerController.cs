@@ -64,12 +64,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        float dirX = Input.GetAxisRaw("Horizontal") * applySpeed;
-        float dirZ = Input.GetAxisRaw("Vertical") * applySpeed;
+        Vector3 dirX = Input.GetAxisRaw("Horizontal") * transform.right;
+        Vector3 dirZ = Input.GetAxisRaw("Vertical") * transform.forward;
 
-        rigid.velocity = new Vector3(dirX, rigid.velocity.y, dirZ);
+        Vector3 dir = (dirX + dirZ).normalized * applySpeed;
+        rigid.velocity = dir + (Vector3.up * rigid.velocity.y);
     }
-        
+
     private void TryRun()
     {
         if (Input.GetKey(KeyCode.LeftShift)) 
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour
     private void CharacterRotation()
     {
         float yRotation = Input.GetAxisRaw("Mouse X");
-        rigid.rotation *= Quaternion.Euler(0, yRotation * lookSensitivity, 0);
+        rigid.MoveRotation(rigid.rotation * Quaternion.Euler(0, yRotation * lookSensitivity, 0));
     }
 
     private void CameraRotation()
