@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Camera cam;
 
+    [SerializeField]
+    private GunController gunConlroller;
+
     private Rigidbody rigid;
     private CapsuleCollider col;
 
@@ -88,6 +91,8 @@ public class PlayerController : MonoBehaviour
         if (isCrouch)
             Crouch();
 
+        gunConlroller.CancelFineSight();
+
         isRun = true;
         applySpeed = runSpeed;
     }
@@ -122,6 +127,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 앉기 (변수 값 세팅)
     private void Crouch()
     {
         isCrouch = !isCrouch;
@@ -138,6 +144,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(CrouchCoroutine());
     }
 
+    // 앉기 코루틴 (카메라 위치 조정)
     IEnumerator CrouchCoroutine()
     {   
         float posY = cam.transform.localPosition.y;
@@ -164,12 +171,14 @@ public class PlayerController : MonoBehaviour
         isGround = Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.1f);
     }
 
+    // 캐릭터 회전 (좌, 우)
     private void CharacterRotation()
     {
         float yRotation = Input.GetAxisRaw("Mouse X");
         rigid.MoveRotation(rigid.rotation * Quaternion.Euler(0, yRotation * lookSensitivity, 0));
     }
 
+    // 카메라 회전 (위, 아래)
     private void CameraRotation()
     {
         float xRotation = Input.GetAxisRaw("Mouse Y");
