@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HandContorller : MonoBehaviour
 {
+    public static bool isActivate = false;
+
     [SerializeField]
     private Hand currentHand;
 
@@ -15,7 +17,8 @@ public class HandContorller : MonoBehaviour
 
     private void Update()
     {
-        TryAttack();
+        if (isActivate)
+            TryAttack();
     }
 
     private void TryAttack()
@@ -65,5 +68,19 @@ public class HandContorller : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void HandChange(Hand hand)
+    {
+        if (WeaponManager.currentWeapon != null)
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
+
+        currentHand = hand;
+        WeaponManager.currentWeapon = currentHand.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentHand.anim;
+
+        currentHand.transform.localPosition = Vector3.zero;
+        currentHand.gameObject.SetActive(true);
+        isActivate = true;
     }
 }

@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
     private void GroundCheck()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.2f);
-        crosshair.RunningAnimation(!isGround);
+        crosshair.JumpingAnimation(!isGround);
     }
 
     // 캐릭터 회전 (좌, 우)

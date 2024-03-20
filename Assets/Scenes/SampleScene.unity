@@ -5367,7 +5367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390, y: -280}
+  m_AnchoredPosition: {x: -420, y: -270}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211635540
@@ -11168,6 +11168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1094892332}
+  - component: {fileID: 1094892336}
   - component: {fileID: 1094892333}
   - component: {fileID: 1094892334}
   - component: {fileID: 1094892335}
@@ -11202,7 +11203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094892331}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5b12798b1b1b0246ace0f6bc48cf18d, type: 3}
   m_Name: 
@@ -11321,6 +11322,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1094892336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094892331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e501aa61aa3ab4691a7e9fa054368c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: GUN
+  changeWeaponDelayTime: 0.1
+  changeWeaponEndDelayTime: 0.1
+  guns:
+  - {fileID: 1328731660}
+  hands:
+  - {fileID: 1357408752}
+  gunController: {fileID: 1094892334}
+  handContorller: {fileID: 1094892333}
 --- !u!1 &1099451982
 GameObject:
   m_ObjectHideFlags: 0
@@ -11878,6 +11900,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb07dd5cc8662c4bb0bca6ba7ccbe5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676654837295469583, guid: 0eb07dd5cc8662c4bb0bca6ba7ccbe5a, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -12254,7 +12280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1563970604
 Transform:
   m_ObjectHideFlags: 0
