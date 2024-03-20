@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GunController : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class GunController : MonoBehaviour
 
     [SerializeField]
     private Camera cam;
+
+    [SerializeField]
+    private Crosshair crosshair;
 
     [SerializeField]
     private GameObject hitEffect;
@@ -77,6 +81,7 @@ public class GunController : MonoBehaviour
     // 발사 후 계산
     private void Shoot()
     {
+        crosshair.FireAnimation();
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate;
         PlaySE(currentGun.fireSound);
@@ -89,7 +94,11 @@ public class GunController : MonoBehaviour
 
     private void Hit()
     {
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, currentGun.range))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward +
+            new Vector3(Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        , Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        , 0)
+                        , out hitInfo, currentGun.range))
         {
             GameObject clone = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
@@ -148,6 +157,7 @@ public class GunController : MonoBehaviour
     {
         isFineSightMode = !isFineSightMode;
         currentGun.anim.SetBool("FineSight", isFineSightMode);
+        crosshair.FineSightAnimation(isFineSightMode);
 
         if (isFineSightMode)
         {
@@ -242,5 +252,10 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    public bool GetFineSightMode()
+    {
+        return isFineSightMode;
     }
 }

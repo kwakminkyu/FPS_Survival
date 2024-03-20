@@ -23,9 +23,10 @@ public class PlayerController : MonoBehaviour
     private float originPosY;
     private float applyCrouchPosY;
 
+    private bool isWalk = false;
     private bool isRun = false;
     private bool isCrouch = false;
-    private bool isGround = false;
+    private bool isGround = true;
 
     [SerializeField]
     private float lookSensitivity;
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GunController gunConlroller;
+
+    [SerializeField]
+    private Crosshair crosshair;
 
     private Rigidbody rigid;
     private CapsuleCollider col;
@@ -63,15 +67,30 @@ public class PlayerController : MonoBehaviour
         CharacterRotation();
     }
 
-    
-
     private void Move()
     {
-        Vector3 dirX = Input.GetAxisRaw("Horizontal") * transform.right;
-        Vector3 dirZ = Input.GetAxisRaw("Vertical") * transform.forward;
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
+        MoveCheck(MathF.Abs(inputX) + MathF.Abs(inputZ));
+
+        Vector3 dirX = inputX * transform.right;
+        Vector3 dirZ = inputZ * transform.forward;
 
         Vector3 dir = (dirX + dirZ).normalized * applySpeed;
         rigid.velocity = dir + (Vector3.up * rigid.velocity.y);
+    }
+
+    private void MoveCheck(float input)
+    {
+        if (!isRun && !isCrouch && isGround)
+        {
+            if (input > 0)
+                isWalk = true;
+            else
+                isWalk = false;
+
+            crosshair.WalkingAnimation(isWalk);
+        }
     }
 
     private void TryRun()
@@ -94,12 +113,15 @@ public class PlayerController : MonoBehaviour
         gunConlroller.CancelFineSight();
 
         isRun = true;
+        crosshair.RunningAnimation(isRun);
         applySpeed = runSpeed;
     }
 
     private void RunningCancel()
     {
         isRun = false;
+
+        crosshair.RunningAnimation(isRun);
         applySpeed = walkSpeed;
     }
 
@@ -131,6 +153,8 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
+        crosshair.CrouchingAnimation(isCrouch);
+
         if (isCrouch)
         {
             applySpeed = crouchSpeed;
@@ -168,7 +192,8 @@ public class PlayerController : MonoBehaviour
 
     private void GroundCheck()
     {
-        isGround = Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.1f);
+        isGround = Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.2f);
+        crosshair.RunningAnimation(!isGround);
     }
 
     // 캐릭터 회전 (좌, 우)
