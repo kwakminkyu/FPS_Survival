@@ -69,12 +69,12 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputZ = Input.GetAxisRaw("Vertical");
-        MoveCheck(MathF.Abs(inputX) + MathF.Abs(inputZ));
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+        MoveCheck(MathF.Abs(moveX) + MathF.Abs(moveZ));
 
-        Vector3 dirX = inputX * transform.right;
-        Vector3 dirZ = inputZ * transform.forward;
+        Vector3 dirX = moveX * transform.right;
+        Vector3 dirZ = moveZ * transform.forward;
 
         Vector3 dir = (dirX + dirZ).normalized * applySpeed;
         rigid.velocity = dir + (Vector3.up * rigid.velocity.y);
