@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class GunController : MonoBehaviour
 {
-    public static bool isActivate = true;
+    public static bool isActivate = false;
 
     [SerializeField]
     private Gun currentGun;
@@ -38,11 +38,11 @@ public class GunController : MonoBehaviour
         originPos = Vector3.zero;
     }
 
-    private void Start()
+    /*private void Start()
     {
         WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
         WeaponManager.currentWeaponAnim = currentGun.anim;
-    }
+    }*/
 
     private void Update()
     {

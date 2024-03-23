@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandContorller : CloseWeaponController
+public class AxeController : CloseWeaponController
 {
     public static bool isActivate = false;
 

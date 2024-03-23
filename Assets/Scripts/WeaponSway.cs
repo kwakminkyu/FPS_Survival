@@ -50,7 +50,6 @@ public class WeaponSway : MonoBehaviour
             currentPos.Set(Mathf.Clamp(Mathf.Lerp(currentPos.x, -moveX, smoothSway.x), -limitPos.x, limitPos.x),
                            Mathf.Clamp(Mathf.Lerp(currentPos.y, -moveY, smoothSway.x), -limitPos.y, limitPos.y),
                            originPos.z);
-            Debug.Log("aa");
         }
         else
         {

@@ -1,11 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandContorller : CloseWeaponController
+public class PickaxeController : CloseWeaponController
 {
-    public static bool isActivate = false;
+    public static bool isActivate = true;
+
+    private void Start()
+    {
+        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
+    }
 
     private void Update()
     {
