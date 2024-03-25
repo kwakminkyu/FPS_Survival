@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     private GunController gunConlroller;
 
     [SerializeField]
+    private StatusContorller statusContorller;
+
+    [SerializeField]
     private Crosshair crosshair;
 
     private Rigidbody rigid;
@@ -95,11 +98,11 @@ public class PlayerController : MonoBehaviour
 
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift)) 
+        if (Input.GetKey(KeyCode.LeftShift) && statusContorller.GetCurrentSP() > 0) 
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || statusContorller.GetCurrentSP() <= 0)
         {
             RunningCancel();
         }
@@ -114,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
         isRun = true;
         crosshair.RunningAnimation(isRun);
+        statusContorller.DecreaseStamina(10);
         applySpeed = runSpeed;
     }
 
@@ -127,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusContorller.GetCurrentSP() > 0)
         {
             Jump();
         }
@@ -138,6 +142,7 @@ public class PlayerController : MonoBehaviour
         if (isCrouch)
             Crouch();
 
+        statusContorller.DecreaseStamina(100);
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
