@@ -27,7 +27,6 @@ public class PickaxeController : CloseWeaponController
                 if (hitInfo.transform.tag == "Rock")
                     hitInfo.transform.GetComponent<Rock>().Mining();
                 isSwing = false;
-                Debug.Log(hitInfo.transform.name);
             }
             yield return null;
         }
