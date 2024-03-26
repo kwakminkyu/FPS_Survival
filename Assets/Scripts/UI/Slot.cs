@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
     public int itemCount;
@@ -15,6 +16,13 @@ public class Slot : MonoBehaviour
     private TextMeshProUGUI countText;
     [SerializeField]
     private GameObject countImage;
+
+    private WeaponManager weaponManager;
+
+    private void Awake()
+    {
+        weaponManager = FindAnyObjectByType<WeaponManager>();
+    }
 
     private void SetColor(float alpha)
     {
@@ -62,4 +70,64 @@ public class Slot : MonoBehaviour
         countImage.SetActive(false);
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (item != null)
+            {
+                if (item.itemType == Item.ItemType.Equipment)
+                {
+                    StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
+                }
+                else
+                {
+                    Debug.Log(item.itemName + " " + "Use");
+                    SetSlotCount(-1);
+                }
+            }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            DragSlot.Instance.dragSlot = this;
+            DragSlot.Instance.DragSetImage(itemImage);
+
+            DragSlot.Instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item != null)
+            DragSlot.Instance.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot.Instance.SetColor(0);
+        DragSlot.Instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (DragSlot.Instance.dragSlot != null)
+            ChangesSlot();
+    }
+
+    private void ChangesSlot()
+    {
+        Item tempItem = item;
+        int tempItemCount = itemCount;
+
+        AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
+
+        if (tempItem != null)
+            DragSlot.Instance.dragSlot.AddItem(tempItem, tempItemCount);
+        else
+            DragSlot.Instance.dragSlot.ClearSlot();
+    }
 }
