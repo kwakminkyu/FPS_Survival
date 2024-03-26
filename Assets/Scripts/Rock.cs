@@ -22,6 +22,12 @@ public class Rock : MonoBehaviour
     private GameObject debrisObj;
 
     [SerializeField]
+    private GameObject itemObj;
+
+    [SerializeField]
+    private int itemCount;
+
+    [SerializeField]
     private GameObject effectPrefab;
 
     [SerializeField]
@@ -46,6 +52,10 @@ public class Rock : MonoBehaviour
         SoundManager.Instance.PlaySE(destroySound);
 
         col.enabled = false;
+        for (int i = 0; i < itemCount; i++)
+        {
+            Instantiate(itemObj, rockObj.transform.position, Quaternion.identity);
+        }
         Destroy(rockObj);
 
         debrisObj.SetActive(true);

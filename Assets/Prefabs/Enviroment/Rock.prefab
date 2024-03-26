@@ -73,6 +73,8 @@ MonoBehaviour:
   col: {fileID: 526970199052790684}
   rockObj: {fileID: 1237404191365022572}
   debrisObj: {fileID: 8063098384832442537}
+  itemObj: {fileID: 8689421371175784696, guid: 8b13deec77577ef478a57b0f43bf6895, type: 3}
+  itemCount: 5
   effectPrefab: {fileID: 6033854811385892636, guid: 50a449c47d03ae84f81fb7d699668f32, type: 3}
   strikeSound: Pickaxe_Strike
   destroySound: Rock_Destroy
