@@ -6673,8 +6673,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 573232d1fceeaa04eab0247bffc80c42, type: 3}
   - name: Rock_Destroy
     clip: {fileID: 8300000, guid: dc38f5ba986e3fc469a794b572091fd0, type: 3}
-  - name: 
-    clip: {fileID: 0}
+  - name: Animal_Hit
+    clip: {fileID: 8300000, guid: 577e8ce866dae4d42a03baffd41e6f38, type: 3}
   - name: 
     clip: {fileID: 0}
   - name: 
@@ -13201,9 +13201,10 @@ GameObject:
   - component: {fileID: 807200961}
   - component: {fileID: 807200960}
   - component: {fileID: 807200962}
+  - component: {fileID: 807200963}
   m_Layer: 0
   m_Name: Pig
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13286,9 +13287,122 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalName: Pig
   hp: 2
-  walkSpeed: 3
-  walkTime: 5
+  walkSpeed: 2
+  walkTime: 4
+  runSpeed: 6
+  runTime: 3
   waitTime: 4
+  pigNomalSound:
+  - {fileID: 8300000, guid: 788a278fb7e47664cab3490f800ba59f, type: 3}
+  - {fileID: 8300000, guid: ca848a6f89bf80f489fbe43cbfaf1136, type: 3}
+  - {fileID: 8300000, guid: 31c80ba5401f3c44e8cf205983b17fad, type: 3}
+  pigHurt: {fileID: 8300000, guid: e226d71bc8c479b4bb7df2c1d13ad4ce, type: 3}
+  pigDead: {fileID: 8300000, guid: f204de4ddfb2f7142a92e6449fd22229, type: 3}
+--- !u!82 &807200963
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807200958}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.26667532
+      value: 1
+      inSlope: -3.0011995
+      outSlope: -3.0011995
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.50606793
+      value: 0.28536987
+      inSlope: -0.7502999
+      outSlope: -0.7502999
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.33346638
+      outSlope: -0.33346638
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.40000153
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000019073486
+      value: 1.0000038
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &817209041
 GameObject:
   m_ObjectHideFlags: 0
@@ -18315,8 +18429,8 @@ SceneRoots:
   - {fileID: 2123435600}
   - {fileID: 1679377596}
   - {fileID: 238839271}
+  - {fileID: 979936047}
   - {fileID: 1112523138}
   - {fileID: 6471494920855968781}
   - {fileID: 6217134697950897157}
-  - {fileID: 979936047}
   - {fileID: 807200959}

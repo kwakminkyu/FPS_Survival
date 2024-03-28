@@ -15,6 +15,11 @@ public class Pig : MonoBehaviour
     [SerializeField]
     private float walkTime;
     [SerializeField]
+    private float runSpeed;
+    private float applySpeed;
+    [SerializeField]
+    private float runTime;
+    [SerializeField]
     private float waitTime;
 
     private Vector3 direction;
@@ -22,14 +27,25 @@ public class Pig : MonoBehaviour
 
     private bool isAction;
     private bool isWalking;
+    private bool isRunning;
+    private bool isDead;
 
     private Animator anim;
+    private AudioSource audioSource;
     private Rigidbody rigid;
     private BoxCollider boxCol;
+
+    [SerializeField]
+    private AudioClip[] pigNomalSound;
+    [SerializeField]
+    private AudioClip pigHurt;
+    [SerializeField]
+    private AudioClip pigDead;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
         currentTime = waitTime;
@@ -38,24 +54,27 @@ public class Pig : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Rotation();
-        ElapseTime();
+        if (!isDead)
+        {
+            Move();
+            Rotation();
+            ElapseTime();
+        }
     }
 
     private void Move()
     {
-        if (isWalking)
+        if (isWalking || isRunning)
         {
-            rigid.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
+            rigid.MovePosition(transform.position + (transform.forward * applySpeed * Time.deltaTime));
         }
     }
 
     private void Rotation()
     {
-        if (isWalking)
+        if (isWalking || isRunning)
         {
-            Vector3 rotation = Vector3.Lerp(transform.eulerAngles, direction, 0.01f);
+            Vector3 rotation = Vector3.Lerp(transform.eulerAngles, new Vector3(0, direction.y, 0), 0.01f);
             rigid.MoveRotation(Quaternion.Euler(rotation));
         }
     }
@@ -74,9 +93,12 @@ public class Pig : MonoBehaviour
 
     private void ResetPig()
     {
-        isWalking = false;
         isAction = false;
+        isWalking = false;
+        isRunning = false;
+        applySpeed = walkSpeed;
         anim.SetBool("Walking", isWalking);
+        anim.SetBool("Running", isRunning);
         direction.Set(0, Random.Range(0f, 360f), 0);
         RandomAction();
     }
@@ -84,6 +106,7 @@ public class Pig : MonoBehaviour
     private void RandomAction()
     {
         isAction = true;
+        RandomSound();
 
         int ran = Random.Range(0, 4);
 
@@ -94,7 +117,7 @@ public class Pig : MonoBehaviour
         else if (ran == 2)
             Peek();
         else if (ran == 3)
-            TryWalk();
+            Walk();
     }
 
     private void Wait()
@@ -117,11 +140,62 @@ public class Pig : MonoBehaviour
         Debug.Log("µÎ¸®¹ø");
     }
 
-    private void TryWalk()
+    private void Walk()
     {
         isWalking = true;
+        isRunning = false;
         currentTime = walkTime;
+        applySpeed = walkSpeed;
         anim.SetBool("Walking", true);
         Debug.Log("°È±â");
+    }
+
+    private void Run(Vector3 targetPos)
+    {
+        direction = Quaternion.LookRotation(transform.position - targetPos).eulerAngles;
+
+        isWalking = false;
+        isRunning = true;
+        currentTime = runTime;
+        applySpeed = runSpeed;
+        anim.SetBool("Running", true);
+    }
+
+    public void Damage(int damage, Vector3 targetPos)
+    {
+        if (!isDead)
+        {
+            hp -= damage;
+
+            if (hp <= 0)
+            {
+                Dead();
+                return;
+            }
+            PlaySE(pigHurt);
+            anim.SetTrigger("Hurt");
+            Run(targetPos);
+        }
+    }
+
+    private void Dead()
+    {
+        PlaySE(pigDead);
+        isWalking = false;
+        isRunning = false;
+        isDead = true;
+        anim.SetTrigger("Dead");
+    }
+
+    private void RandomSound()
+    {
+        int ran = Random.Range(0, 3);
+        PlaySE(pigNomalSound[ran]);
+    }
+
+    private void PlaySE(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
