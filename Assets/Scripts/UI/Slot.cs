@@ -17,11 +17,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     [SerializeField]
     private GameObject countImage;
 
-    private WeaponManager weaponManager;
+    private ItemEffectDataBase itemEffectDataBases;
 
     private void Awake()
     {
-        weaponManager = FindAnyObjectByType<WeaponManager>();
+        itemEffectDataBases = FindAnyObjectByType<ItemEffectDataBase>();
     }
 
     private void SetColor(float alpha)
@@ -76,15 +76,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             if (item != null)
             {
-                if (item.itemType == Item.ItemType.Equipment)
-                {
-                    StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
-                }
-                else
-                {
-                    Debug.Log(item.itemName + " " + "Use");
+                itemEffectDataBases.UseItem(item);
+                if (item.itemType == Item.ItemType.Used)
                     SetSlotCount(-1);
-                }
             }
         }
     }

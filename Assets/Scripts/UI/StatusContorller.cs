@@ -134,6 +134,14 @@ public class StatusContorller : MonoBehaviour
             Debug.Log("HP가 0이 되었습니다");
     }
 
+    public void IncreaseSP(int count)
+    {
+        if (currentSp + count < sp)
+            currentSp += count;
+        else
+            currentSp = sp;
+    }
+
     public void IncreaseDP(int count)
     {
         if (currentDp + count < dp)
