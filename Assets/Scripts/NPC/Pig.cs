@@ -67,7 +67,6 @@ public class Pig : MonoBehaviour
         if (isWalking || isRunning)
         {
             rigid.MovePosition(transform.position + (transform.forward * applySpeed * Time.deltaTime));
-            Debug.Log(applySpeed);
         }
     }
 

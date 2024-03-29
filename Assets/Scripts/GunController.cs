@@ -32,6 +32,9 @@ public class GunController : MonoBehaviour
     private AudioSource audioSource;
     private RaycastHit hitInfo;
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -109,7 +112,7 @@ public class GunController : MonoBehaviour
             new Vector3(Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
                         , Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
                         , 0)
-                        , out hitInfo, currentGun.range))
+                        , out hitInfo, currentGun.range, layerMask))
         {
             GameObject clone = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);

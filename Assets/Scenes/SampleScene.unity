@@ -14352,6 +14352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 1357408752}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &1094892334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14369,6 +14372,9 @@ MonoBehaviour:
   cam: {fileID: 1502967150}
   crosshair: {fileID: 1433721299}
   hitEffect: {fileID: 1866442859184663950, guid: 2372d1b1a3847984d8672f51d7afc323, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!82 &1094892335
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14521,6 +14527,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 482166804}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &1094892339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14534,6 +14543,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 887996814}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!1 &1099451982
 GameObject:
   m_ObjectHideFlags: 0
