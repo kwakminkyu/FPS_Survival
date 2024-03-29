@@ -67,6 +67,7 @@ public class Pig : MonoBehaviour
         if (isWalking || isRunning)
         {
             rigid.MovePosition(transform.position + (transform.forward * applySpeed * Time.deltaTime));
+            Debug.Log(applySpeed);
         }
     }
 
@@ -150,7 +151,7 @@ public class Pig : MonoBehaviour
         Debug.Log("°È±â");
     }
 
-    private void Run(Vector3 targetPos)
+    public void Run(Vector3 targetPos)
     {
         direction = Quaternion.LookRotation(transform.position - targetPos).eulerAngles;
 
@@ -159,6 +160,7 @@ public class Pig : MonoBehaviour
         currentTime = runTime;
         applySpeed = runSpeed;
         anim.SetBool("Running", true);
+        Debug.Log("´Þ¸®±â");
     }
 
     public void Damage(int damage, Vector3 targetPos)
