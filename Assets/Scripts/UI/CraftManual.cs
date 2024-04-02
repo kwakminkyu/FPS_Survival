@@ -37,6 +37,8 @@ public class CraftManual : MonoBehaviour
 
     public void SlotClick(int slotNumber)
     {
+        GameManager.isOpenCraftManual = false;
+
         previewPrefab = Instantiate(craftFire[slotNumber].previewPrefab, playerTransform.position + playerTransform.forward, Quaternion.identity);
         prefab = craftFire[slotNumber].prefab;
         isPreviewActivated = true;
@@ -60,7 +62,7 @@ public class CraftManual : MonoBehaviour
 
     private void Build()
     {
-        if (isPreviewActivated)
+        if (isPreviewActivated && previewPrefab.GetComponent<PreviewObject>().IsBuildable())
         {
             Instantiate(prefab, hitInfo.point, Quaternion.identity);
             Destroy(previewPrefab);
@@ -88,11 +90,10 @@ public class CraftManual : MonoBehaviour
         if (isPreviewActivated)
             Destroy(previewPrefab);
 
-        isActivated = false;
         isPreviewActivated = false;
         previewPrefab = null;
         prefab = null;
-        baseUIObj.SetActive(false);
+        CloseWindow();
     }
 
     private void CheckWindow()
@@ -105,12 +106,14 @@ public class CraftManual : MonoBehaviour
 
     private void CloseWindow()
     {
+        GameManager.isOpenCraftManual = false;
         isActivated = false;
         baseUIObj.SetActive(false);
     }
 
     private void OpenWindow()
     {
+        GameManager.isOpenCraftManual = true;
         isActivated = true;
         baseUIObj.SetActive(true);
     }
