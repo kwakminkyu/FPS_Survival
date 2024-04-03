@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public static bool isOpenInventory = false;
     public static bool isOpenCraftManual = false;
 
+    public static bool isNight = false;
+    public static bool isWater = false;
+    
     private void Update()
     {
         if (isOpenInventory || isOpenCraftManual)
