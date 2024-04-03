@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
 
     public static bool isNight = false;
     public static bool isWater = false;
+
+    [SerializeField]
+    private WeaponManager weaponManager;
+
+    private bool flag = false;
     
     private void Update()
     {
@@ -25,6 +30,24 @@ public class GameManager : MonoBehaviour
             canPlayerMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        if (isWater)
+        {
+            if (!flag)
+            {
+                StopAllCoroutines();
+                StartCoroutine(weaponManager.WeaponInCoroutine());
+                flag = true;
+            }
+        }
+        else
+        {
+            if (flag)
+            {
+                weaponManager.WeaponOut();
+                flag = false;
+            }
         }
     }
 

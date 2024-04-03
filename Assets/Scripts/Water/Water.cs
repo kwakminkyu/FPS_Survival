@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Water : MonoBehaviour
 {
@@ -37,11 +40,31 @@ public class Water : MonoBehaviour
     private float breathTime;
     private float currentBreathTime;
 
+    [SerializeField]
+    private float totalOxygen;
+    private float currentOxygen;
+    private float temp;
+    [SerializeField]
+    private GameObject baseUI;
+    [SerializeField]
+    private TextMeshProUGUI totalOxygenText;
+    [SerializeField]
+    private TextMeshProUGUI currentOxygenText;
+    [SerializeField]
+    private Image gaugeImage;
+
+    [SerializeField]
+    private StatusContorller playerStat;
+
+
     private void Awake()
     {
         originDrag = 0;
         originColor = RenderSettings.fogColor;
         originFogDensity = RenderSettings.fogDensity;
+        totalOxygenText.text = totalOxygen.ToString();
+        currentOxygenText.text = totalOxygen.ToString();
+        currentOxygen = totalOxygen;
     }
 
     private void Update()
@@ -53,6 +76,24 @@ public class Water : MonoBehaviour
             {
                 SoundManager.Instance.PlaySE(soundWaterBreath);
                 currentBreathTime = 0f;
+            }
+            DecreaseOxygen();
+        }
+    }
+
+    private void DecreaseOxygen()
+    {
+        currentOxygen -= Time.deltaTime;
+        currentOxygenText.text = Mathf.RoundToInt(currentOxygen).ToString();
+        gaugeImage.fillAmount = currentOxygen / totalOxygen;
+        
+        if (currentOxygen <= 0)
+        {
+            temp += Time.deltaTime;
+            if (temp >= 1)
+            {
+                playerStat.DecreaseHP(1);
+                temp = 0;
             }
         }
     }
@@ -71,6 +112,8 @@ public class Water : MonoBehaviour
 
     private void GetWater(Collider player)
     {
+        baseUI.SetActive(true);
+
         SoundManager.Instance.PlaySE(soundWaterIn);
         GameManager.isWater = true;
         player.transform.GetComponent<Rigidbody>().drag = waterDrag;
@@ -91,6 +134,9 @@ public class Water : MonoBehaviour
     {
         if (GameManager.isWater)
         {
+            baseUI.SetActive(false);
+
+            currentOxygen = totalOxygen;
             SoundManager.Instance.PlaySE(soundWaterOut);
             GameManager.isWater = false;
             player.transform.GetComponent<Rigidbody>().drag = originDrag;
