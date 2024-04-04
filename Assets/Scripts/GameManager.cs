@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static bool isNight = false;
     public static bool isWater = false;
 
+    public static bool isPause = false;
+
     [SerializeField]
     private WeaponManager weaponManager;
 
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        if (isOpenInventory || isOpenCraftManual)
+        if (isOpenInventory || isOpenCraftManual || isPause)
         {
             canPlayerMove = false;
             Cursor.lockState = CursorLockMode.None;
