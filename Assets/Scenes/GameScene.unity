@@ -13514,6 +13514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseUI: {fileID: 1576327136}
+  saveAndLoad: {fileID: 1640279608}
 --- !u!1001 &516075997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15291,6 +15292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBase: {fileID: 1443608468}
   slotParent: {fileID: 276853571}
+  items:
+  - {fileID: 11400000, guid: 9b2dacefd03a2bd42ac101cfd03f6585, type: 2}
+  - {fileID: 11400000, guid: 07a01ea502afc5b4281fdfef18c5e74a, type: 2}
+  - {fileID: 11400000, guid: 0fd85eea988563e42b5fb7e23bb9073f, type: 2}
 --- !u!1 &821755405
 GameObject:
   m_ObjectHideFlags: 0
@@ -20349,6 +20354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1640279607}
   - component: {fileID: 1640279606}
+  - component: {fileID: 1640279608}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -20368,7 +20374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed96c8bbf2073964695abcbdeefde5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponManager: {fileID: 0}
+  weaponManager: {fileID: 1094892336}
 --- !u!4 &1640279607
 Transform:
   m_ObjectHideFlags: 0
@@ -20384,6 +20390,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1640279608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640279605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fde58f107523d439708e8fa5f0ecd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655880126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bf534a68e9df924ba1600734d35de45, type: 3}
@@ -22830,6 +22848,6 @@ SceneRoots:
   - {fileID: 6217134697950897157}
   - {fileID: 807200959}
   - {fileID: 7664103106924141013}
-  - {fileID: 1640279607}
   - {fileID: 1903935482}
   - {fileID: 543887042}
+  - {fileID: 1640279607}

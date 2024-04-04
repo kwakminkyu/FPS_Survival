@@ -15,6 +15,20 @@ public class Inventory : MonoBehaviour
 
     private Slot[] slots;
 
+    public Slot[] GetSlots() { return slots; }
+
+    [SerializeField]
+    private Item[] items;
+
+    public void LoadToInven(int arrayNum, string itemName, int itemNum)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].itemName == itemName)
+                slots[arrayNum].AddItem(items[i], itemNum);
+        }
+    }
+
     private void Awake()
     {
         slots = slotParent.GetComponentsInChildren<Slot>();
